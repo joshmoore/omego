@@ -227,7 +227,8 @@ class DbAdmin(object):
             'name': self.args.dbname,
             'host': self.args.dbhost,
             'user': self.args.dbuser,
-            'pass': self.args.dbpass
+            'pass': self.args.dbpass,
+            'port': self.args.dbport,
             }
 
         if not self.args.no_db_config:
@@ -263,6 +264,7 @@ class DbAdmin(object):
             '-d', db['name'],
             '-h', db['host'],
             '-U', db['user'],
+            '-p', db['port'],
             '-w', '-A', '-t'
             ] + list(psqlargs)
         stdout, stderr = External.run('psql', args, capturestd=True, env=env)
@@ -277,7 +279,7 @@ class DbAdmin(object):
         """
         db, env = self.get_db_args_env()
 
-        args = ['-d', db['name'], '-h', db['host'], '-U', db['user'], '-w'
+        args = ['-d', db['name'], '-h', db['host'], '-U', db['user'], '-p', db['port'], '-w',
                 ] + list(pgdumpargs)
         stdout, stderr = External.run(
             'pg_dump', args, capturestd=True, env=env)

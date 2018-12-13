@@ -79,6 +79,8 @@ class DbParser(argparse.ArgumentParser):
         Add = EnvDefault.add
         Add(group, "dbhost", 'localhost',
             help="Hostname of the OMERO database server")
+        Add(group, "dbport", '5432',
+            help="Port of the OMERO database server")
         # No default dbname to prevent inadvertent upgrading of databases
         Add(group, "dbname", None,
             help="Name of the OMERO database")
